@@ -1,4 +1,4 @@
-
+/* eslint-disable @next/next/no-img-element */
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -36,7 +36,7 @@ export default function Hero() {
                 srcSet="/top?username=rahuletto&layout=bar"
                 media="(prefers-color-scheme: dark)"
               />
-              <Image
+              <img
                 width={300}
                 height={260}
                 loading="lazy"
@@ -61,7 +61,7 @@ export default function Hero() {
                 srcSet="/user?username=rahuletto"
                 media="(prefers-color-scheme: dark)"
               />
-              <Image
+              <img
                 width={285}
                 height={340}
                 src="/user?username=rahuletto&theme=light"
@@ -97,7 +97,7 @@ export default function Hero() {
                 srcSet="/recent?username=rahuletto&theme=dino"
                 media="(prefers-color-scheme: dark)"
               />
-              <Image
+              <img
                 width={410}
                 height={110}
                 loading="lazy"
@@ -127,7 +127,7 @@ export default function Hero() {
                 srcSet="/wakatime?username=rahuletto&theme=catppuccin&layout=bar"
                 media="(prefers-color-scheme: dark)"
               />
-              <Image
+              <img
                 width={300}
                 height={337}
                 loading="lazy"
@@ -152,7 +152,7 @@ export default function Hero() {
                 srcSet="/wakatime?username=rahuletto&layout=compact&theme=catppuccin"
                 media="(prefers-color-scheme: dark)"
               />
-              <Image
+              <img
                 width={480}
                 height={130}
                 loading="lazy"
@@ -186,7 +186,7 @@ export default function Hero() {
                 srcSet="/recent?username=rahulmarban&theme=cyred"
                 media="(prefers-color-scheme: dark)"
               />
-              <Image
+              <img
                 width={500}
                 height={170}
                 loading="lazy"
@@ -218,7 +218,7 @@ export default function Hero() {
                 srcSet="/repo?username=rahuletto&repo=gitMyStat&theme=gold"
                 media="(prefers-color-scheme: dark)"
               />
-              <Image
+              <img
                 width={500}
                 height={170}
                 loading="lazy"
