@@ -1,69 +1,63 @@
 import { ReactNode } from "react";
 import satori from "satori";
 import { readFileSync, existsSync } from "fs";
-import { join, dirname } from "path";
-import { fileURLToPath } from "url";
+import { join } from "path";
 import { getIconCode, loadEmoji } from "./emoji";
 
-// Get absolute path to assets directory (works on both local and Vercel)
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const assetDir = join(__dirname, "../assets");
+// Use process.cwd() which is reliable in Next.js production (Vercel)
+const assetDir = join(process.cwd(), "assets");
 
-// Load fonts with fallback - some environments may not have access to file paths
+// Load fonts with error logging
 let urbanist: Buffer;
 let urbanistBold: Buffer;
 
 try {
-  // Try to load from assets directory first
-  if (existsSync(join(assetDir, "Urbanist-SemiBold.ttf"))) {
-    urbanist = readFileSync(join(assetDir, "Urbanist-SemiBold.ttf"));
+  const semiBoldPath = join(assetDir, "Urbanist-SemiBold.ttf");
+  const boldPath = join(assetDir, "Urbanist-Bold.ttf");
+  
+  console.log("Attempting to load fonts from:", assetDir);
+  console.log("SemiBold exists:", existsSync(semiBoldPath));
+  console.log("Bold exists:", existsSync(boldPath));
+  
+  if (existsSync(semiBoldPath)) {
+    urbanist = readFileSync(semiBoldPath);
+    console.log("✓ Loaded Urbanist-SemiBold:", urbanist.length, "bytes");
   } else {
-    // Fallback: use empty buffer (will use system font)
-    urbanist = Buffer.alloc(0);
+    throw new Error(`Font not found: ${semiBoldPath}`);
   }
   
-  if (existsSync(join(assetDir, "Urbanist-Bold.ttf"))) {
-    urbanistBold = readFileSync(join(assetDir, "Urbanist-Bold.ttf"));
+  if (existsSync(boldPath)) {
+    urbanistBold = readFileSync(boldPath);
+    console.log("✓ Loaded Urbanist-Bold:", urbanistBold.length, "bytes");
   } else {
-    // Fallback: use empty buffer (will use system font)
-    urbanistBold = Buffer.alloc(0);
+    throw new Error(`Font not found: ${boldPath}`);
   }
 } catch (error) {
-  console.warn("Failed to load Urbanist fonts from file system, using system fonts as fallback");
-  urbanist = Buffer.alloc(0);
-  urbanistBold = Buffer.alloc(0);
+  console.error("FATAL: Failed to load fonts:", error);
+  throw new Error(`Font loading failed: ${(error as Error).message}`);
 }
 
 export default async function generateSvg(
   fn: ReactNode,
   options: { width: number; height: number }
 ) {
-  // Only include fonts if they were successfully loaded
-  const fonts: Array<{ weight: 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900; style: "normal" | "italic"; data: Buffer; name: string }> = [];
-  
-  if (urbanist.length > 0) {
-    fonts.push({
-      weight: 500,
-      style: "normal",
-      data: urbanist,
-      name: "Urbanist",
-    });
-  }
-  
-  if (urbanistBold.length > 0) {
-    fonts.push({
-      weight: 600,
-      style: "normal",
-      data: urbanistBold,
-      name: "Urbanist",
-    });
-  }
-
   const data = await satori(fn, {
     width: options.width,
     height: options.height,
-    fonts: fonts,
+    fonts: [
+      {
+        weight: 500,
+        style: "normal",
+        data: urbanist,
+        name: "Urbanist",
+      },
+      {
+        weight: 600,
+        style: "normal",
+        data: urbanistBold,
+        name: "Urbanist",
+      },
+    ],
     loadAdditionalAsset: async (code: string, segment: string) => {
       if (code === "emoji") {
 
