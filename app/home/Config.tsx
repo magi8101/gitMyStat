@@ -1,5 +1,6 @@
 import { useDevice } from "@/providers/DeviceProvider";
 import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
 
 const Card = dynamic(() => import("./Card"), {
   ssr: false,
@@ -7,6 +8,13 @@ const Card = dynamic(() => import("./Card"), {
 
 export default function Config() {
   const device = useDevice()
+  const [baseUrl, setBaseUrl] = useState('https://git-my-stat.vercel.app')
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setBaseUrl(window.location.origin)
+    }
+  }, [])
   return (
     <>
       <section
@@ -19,7 +27,7 @@ export default function Config() {
           <p className="text-lg">
             Base URL:{" "}
             <code className="bg-background dark:text-color border-tip flex select-all rounded-xl border-2 px-4 py-2">
-              https://gitmystat.vercel.app/
+              {baseUrl}/
             </code>
           </p>
         </div>
