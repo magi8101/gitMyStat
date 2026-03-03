@@ -1,28 +1,18 @@
 import { ReactNode } from "react";
 import satori from "satori";
+import { readFileSync } from "fs";
+import { join } from "path";
 import { getIconCode, loadEmoji } from "./emoji";
 
-const urbanistFetch = fetch(
-  new URL("../assets/Urbanist-SemiBold.ttf", import.meta.url),
-  {
-    cache: "force-cache",
-  }
-).then((res) => res.arrayBuffer());
-
-const boldFetch = fetch(
-  new URL("../assets/Urbanist-Bold.ttf", import.meta.url),
-  {
-    cache: "force-cache",
-  }
-).then((res) => res.arrayBuffer());
+// Load fonts synchronously at module load time (cached by Node.js)
+const assetDir = join(process.cwd(), "assets");
+const urbanist = readFileSync(join(assetDir, "Urbanist-SemiBold.ttf"));
+const urbanistBold = readFileSync(join(assetDir, "Urbanist-Bold.ttf"));
 
 export default async function generateSvg(
   fn: ReactNode,
   options: { width: number; height: number }
 ) {
-  const urbanist = await urbanistFetch;
-  const urbanistBold = await boldFetch;
-
   const data = await satori(fn, {
     width: options.width,
     height: options.height,
