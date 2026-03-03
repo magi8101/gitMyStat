@@ -57,6 +57,12 @@ export default function Config() {
 
         <div className="flex flex-col gap-4 w-full">
           <h4 className="text-left text-3xl font-bold">Recent</h4>
+          <p className="text-base text-accent">
+            Make it clickable in markdown by wrapping with the redirect link:
+            <code className="ml-2 rounded-md bg-background border border-border px-2 py-1 text-sm">
+              [![Recent]({baseUrl}/recent?username=USER)]({baseUrl}/recent/link?username=USER)
+            </code>
+          </p>
           <div className="grid w-full gap-12 rounded-xl"
             style={{
               gridTemplateColumns: "repeat(auto-fill, minmax(24rem, 1fr))",
