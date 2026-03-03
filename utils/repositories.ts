@@ -1,15 +1,20 @@
+import { getTokenPool } from "@/helpers/tokenPool";
+
 export default async function RepoList(user: string) {
-  const graph = await fetch("https://api.github.com/graphql", {
+  const tokenPool = getTokenPool();
+  const token = tokenPool.getNextToken();
+
+  const response = await fetch("https://api.github.com/graphql", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       "Cache-Control": "private; stale-while-revalidate=3600",
-      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
       query: `
-                query {
-      user(login: "${user}") {
+                query GetUserRepos($login: String!) {
+      user(login: $login) {
         repositories(first: 1, orderBy: {direction: DESC, field: PUSHED_AT}) {
           edges {
             node {
@@ -26,10 +31,13 @@ export default async function RepoList(user: string) {
       }
     }
             `,
-      variables: {},
+      variables: { login: user },
     }),
   });
 
-  const data = await graph.json();
+  // Track rate limit state from response headers
+  tokenPool.updateTokenState(response.headers);
+
+  const data = await response.json();
   return data;
 }

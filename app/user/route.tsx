@@ -8,6 +8,8 @@ import { parseGitHubData } from "@/helpers/calculateRank";
 import UserComp from "./User";
 
 // /user?user=rahuletto
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
 
@@ -70,5 +72,3 @@ export async function GET(request: Request) {
     return Send(image, {error: true});
   }
 }
-
-export const runtime = "edge";

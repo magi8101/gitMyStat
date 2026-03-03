@@ -1,18 +1,22 @@
 
 import { RawLanguageData } from "@/types/Languages";
+import { getTokenPool } from "@/helpers/tokenPool";
 
 export default async function LangData(user: string) {
-  const graph = await fetch("https://api.github.com/graphql", {
+  const tokenPool = getTokenPool();
+  const token = tokenPool.getNextToken();
+
+  const response = await fetch("https://api.github.com/graphql", {
     method: "POST",
     headers: {
       "Cache-Control": "private; stale-while-revalidate=3600",
       "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
       query: `
-                  query {
-  user(login: "${user}") {
+                  query GetUserLanguages($login: String!) {
+  user(login: $login) {
     repositories(
       first: 100
     ) {
@@ -34,11 +38,14 @@ export default async function LangData(user: string) {
   }
 }
               `,
-      variables: {},
+      variables: { login: user },
     }),
   });
 
-  const data: RawLanguageData = await graph.json();
+  // Track rate limit state from response headers
+  tokenPool.updateTokenState(response.headers);
+
+  const data: RawLanguageData = await response.json();
 
   return data
 }

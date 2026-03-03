@@ -9,6 +9,8 @@ import Wakatime from "@/utils/wakatime";
 import { WakaData } from "@/types/Waka";
 import BarWaka from "./Bar";
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
 
@@ -98,5 +100,3 @@ export async function GET(request: Request) {
     return Send(image, {error: true});
   }
 }
-
-export const runtime = "edge";

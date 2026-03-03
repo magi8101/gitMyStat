@@ -1,6 +1,6 @@
 ![gitmystat](/assets/gitmystat.png)
 
-Just My version of fork this shit is cool asf  and looks beautifull ad elegant and it took an eternity to load so made it faster 
+Just My version of fork this shit is cool asf  and looks beautifull and elegant and it took an eternity to load so made it faster 
 
 # gitMyStat!
 

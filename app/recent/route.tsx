@@ -7,6 +7,8 @@ import { ThemeData } from "@/types/Theme";
 import Error from "../Error";
 
 // /recent?username=rahuletto
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const { user, color, accent, background, border, radius, padding } =
@@ -87,5 +89,3 @@ export async function GET(request: Request) {
     return Send(image, {error: true});
   }
 }
-
-export const runtime = "edge";

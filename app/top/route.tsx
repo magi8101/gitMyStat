@@ -12,6 +12,7 @@ import CompactTop from "./Compact";
 // /top?username=rahuletto&layout=bar
 // /top?username=rahuletto&layout=normal
 // /top?username=rahuletto&layout=compact
+export const dynamic = 'force-dynamic';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -98,5 +99,3 @@ export async function GET(request: Request) {
     return Send(image, {error: true});
   }
 }
-
-export const runtime = "edge";
