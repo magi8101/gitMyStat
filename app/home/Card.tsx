@@ -1,4 +1,4 @@
-import Image from "next/image";
+/* eslint-disable @next/next/no-img-element */
 import { Themes } from "@/themes";
 
 export default function Card({
@@ -19,7 +19,7 @@ export default function Card({
           srcSet={`${url}&theme=${theme}`}
           media="(prefers-color-scheme: dark)"
         />
-        <Image
+        <img
           className="mx-auto"
           width={width ?? 500}
           height={170}
