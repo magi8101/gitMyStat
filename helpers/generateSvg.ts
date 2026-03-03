@@ -1,11 +1,14 @@
 import { ReactNode } from "react";
 import satori from "satori";
 import { readFileSync } from "fs";
-import { join } from "path";
+import { join, dirname } from "path";
+import { fileURLToPath } from "url";
 import { getIconCode, loadEmoji } from "./emoji";
 
-// Load fonts synchronously at module load time (cached by Node.js)
-const assetDir = join(process.cwd(), "assets");
+// Get absolute path to assets directory (works on both local and Vercel)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const assetDir = join(__dirname, "../assets");
 const urbanist = readFileSync(join(assetDir, "Urbanist-SemiBold.ttf"));
 const urbanistBold = readFileSync(join(assetDir, "Urbanist-Bold.ttf"));
 
