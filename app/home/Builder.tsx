@@ -40,7 +40,7 @@ export default function Builder() {
                   e.target.value
                 )
               }
-              className="max-w-[120px] appearance-none rounded-xl border-paper-border px-4 py-2 text-lg text-paper-color dark:bg-moonlight-background dark:text-moonlight-accent"
+              className="max-w-[120px] appearance-none rounded-xl border-paper-border bg-white px-4 py-2 text-lg text-paper-color dark:bg-moonlight-background dark:text-moonlight-accent"
             />
           </div>
         ) : (
@@ -57,7 +57,7 @@ export default function Builder() {
                 }}
               />
               <HexColorInput
-                className="max-w-[200px] appearance-none rounded-xl border-paper-border px-4 py-2 text-lg text-paper-color dark:bg-moonlight-background dark:text-moonlight-accent"
+                className="max-w-[200px] appearance-none rounded-xl border-paper-border bg-white px-4 py-2 text-lg text-paper-color dark:bg-moonlight-background dark:text-moonlight-accent"
                 color={(themeColors as any)[key]}
                 onChange={(e) => {
                   handleColorChange(key as keyof typeof themeColors, e);
@@ -161,7 +161,7 @@ export default function Builder() {
                     required
                     value={theme}
                     onChange={(e) => setTheme(e.target.value)}
-                    className="appearance-none rounded-xl border-paper-border px-4 py-2 text-lg text-paper-color dark:bg-moonlight-background dark:text-moonlight-accent"
+                    className="appearance-none rounded-xl border-paper-border bg-white px-4 py-2 text-lg text-paper-color dark:bg-moonlight-background dark:text-moonlight-accent"
                   >
                     <option disabled value="" selected>
                       Select Theme
@@ -180,7 +180,7 @@ export default function Builder() {
                     required
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    className={`${error == 1 ? "border-4 border-red-400" : ""} appearance-none rounded-xl border-paper-border px-4 py-2 text-lg text-paper-color dark:bg-moonlight-background dark:text-moonlight-accent`}
+                    className={`${error == 1 ? "border-4 border-red-400" : ""} appearance-none rounded-xl border-paper-border bg-white px-4 py-2 text-lg text-paper-color dark:bg-moonlight-background dark:text-moonlight-accent`}
                   />
                 </div>
                 {card == "top" ||
@@ -191,7 +191,7 @@ export default function Builder() {
                         required
                         value={layout}
                         onChange={(e) => setLayout(e.target.value)}
-                        className="appearance-none rounded-xl border-paper-border px-4 py-2 text-lg text-paper-color dark:bg-moonlight-background dark:text-moonlight-accent"
+                        className="appearance-none rounded-xl border-paper-border bg-white px-4 py-2 text-lg text-paper-color dark:bg-moonlight-background dark:text-moonlight-accent"
                       >
                         <option disabled value="" selected>
                           Select Layout
@@ -212,7 +212,7 @@ export default function Builder() {
                       required
                       value={repo}
                       onChange={(e) => setRepo(e.target.value)}
-                      className="appearance-none rounded-xl border-paper-border px-4 py-2 text-lg text-paper-color dark:bg-moonlight-background dark:text-moonlight-accent"
+                      className="appearance-none rounded-xl border-paper-border bg-white px-4 py-2 text-lg text-paper-color dark:bg-moonlight-background dark:text-moonlight-accent"
                     />
                   </div>
                 )}
@@ -237,7 +237,7 @@ export default function Builder() {
           {url && (
             <div className="flex w-full flex-col items-start justify-center gap-4">
               <img src={url} alt={card} />
-              <code className="mx-4 select-all break-all rounded-xl border-paper-border px-4 py-2 text-sm text-paper-color lg:text-lg dark:bg-moonlight-background dark:text-moonlight-accent">
+              <code className="mx-4 select-all break-all rounded-xl border-paper-border bg-white px-4 py-2 text-sm text-paper-color lg:text-lg dark:bg-moonlight-background dark:text-moonlight-accent">
                 https://gitmystat.vercel.app{url}
               </code>
             </div>
