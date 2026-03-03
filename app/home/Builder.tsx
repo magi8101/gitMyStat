@@ -238,7 +238,7 @@ export default function Builder() {
             <div className="flex w-full flex-col items-start justify-center gap-4">
               <img src={url} alt={card} />
               <code className="mx-4 select-all break-all rounded-xl border-paper-border bg-white px-4 py-2 text-sm text-paper-color lg:text-lg dark:bg-moonlight-background dark:text-moonlight-accent">
-                https://gitmystat.vercel.app{url}
+                {typeof window !== 'undefined' ? window.location.origin : 'https://git-my-stat.vercel.app'}{url}
               </code>
             </div>
           )}
