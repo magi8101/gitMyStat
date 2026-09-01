@@ -3,9 +3,13 @@ import { ContributionDay, RawStreakData, StreakStats } from "@/types/Streak";
 export function calculateStreak(data: RawStreakData): StreakStats {
   const calendar = data.data.user!.contributionsCollection.contributionCalendar;
 
-  const days: ContributionDay[] = calendar.weeks.flatMap(
-    (week) => week.contributionDays
-  );
+  const todayStr = new Date().toISOString().slice(0, 10);
+
+  // GitHub pads the last week to a full Sun-Sat range, which can include
+  // dates after today (with 0 contributions) - drop those before scanning.
+  const days: ContributionDay[] = calendar.weeks
+    .flatMap((week) => week.contributionDays)
+    .filter((day) => day.date <= todayStr);
 
   let longestStreak = 0;
   let runningStreak = 0;

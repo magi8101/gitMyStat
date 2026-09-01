@@ -1,4 +1,5 @@
 import { getTokenPool } from "@/helpers/tokenPool";
+import { RawStreakData } from "@/types/Streak";
 
 export default async function StreakData(user: string) {
   const tokenPool = getTokenPool();
@@ -35,6 +36,6 @@ query GetStreak($login: String!) {
 
   tokenPool.updateTokenState(response.headers);
 
-  const data = await response.json();
+  const data: RawStreakData = await response.json();
   return data;
 }
