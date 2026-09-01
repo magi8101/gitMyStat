@@ -8,7 +8,7 @@ export interface PinnedRepo {
   forkCount: number;
   primaryLanguage: {
     name: string;
-    color: string;
+    color: string | null;
   } | null;
 }
 

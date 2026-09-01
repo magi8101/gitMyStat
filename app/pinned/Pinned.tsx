@@ -25,7 +25,7 @@ function Tile({ repo, theme }: { repo: PinnedRepo; theme: ThemeData }) {
         {repo.primaryLanguage && (
           <div tw="flex items-center" style={{ gap: 6 }}>
             <div
-              tw={`h-2 w-2 rounded-full bg-[${repo.primaryLanguage.color}]`}
+              tw={`h-2 w-2 rounded-full bg-[${repo.primaryLanguage.color ?? theme.accent}]`}
             />
             <span tw={`text-xs font-medium text-[${theme.color}]`}>
               {repo.primaryLanguage.name}
@@ -54,7 +54,7 @@ export default function PinnedComp(data: PinnedRepo[], theme: ThemeData) {
     <Container theme={theme}>
       <div tw="flex flex-row flex-wrap w-full" style={{ gap: 12 }}>
         {data.map((repo) => (
-          <Tile key={repo.name} repo={repo} theme={theme} />
+          <Tile key={repo.url} repo={repo} theme={theme} />
         ))}
       </div>
     </Container>

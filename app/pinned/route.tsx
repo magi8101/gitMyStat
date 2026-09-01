@@ -6,7 +6,7 @@ import Error from "../Error";
 import PinnedData from "@/utils/pinned";
 import PinnedComp from "./Pinned";
 
-// /pinned?user=rahuletto
+// /pinned?username=rahuletto
 export const dynamic = 'force-dynamic';
 
 export async function GET(request: Request) {
