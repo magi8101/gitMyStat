@@ -20,16 +20,25 @@ function Tile({ repo, theme }: { repo: PinnedRepo; theme: ThemeData }) {
         overflow: "hidden",
       }}
     >
-      <div style={{ gap: 6 }} tw="flex flex-row items-center">
+      <div
+        style={{ gap: 6, flexShrink: 0 }}
+        tw="flex flex-row items-center"
+      >
         <GoRepo color={theme.color} size={16} />
         <div tw={`flex text-[${theme.color}] text-base font-bold`}>
           {repo.name}
         </div>
       </div>
-      <div tw={`flex text-[${theme.accent}] text-xs`}>
+      <div
+        tw={`flex text-[${theme.accent}] text-xs`}
+        style={{ flexGrow: 1, overflow: "hidden" }}
+      >
         {sliced.length === description.length ? description : sliced + "..."}
       </div>
-      <div tw="flex flex-row mt-1" style={{ gap: 16 }}>
+      <div
+        tw="flex flex-row mt-1"
+        style={{ gap: 16, flexShrink: 0 }}
+      >
         {repo.primaryLanguage ? (
           <div tw="flex items-center" style={{ gap: 6 }}>
             <div
