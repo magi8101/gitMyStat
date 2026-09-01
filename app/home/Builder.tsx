@@ -142,12 +142,6 @@ export default function Builder() {
         >
           Wakatime
         </button>
-        <button
-          className={`${btnStyle} ${card === "streak" && "bg-paper-border text-paper-color dark:bg-moonlight-color dark:text-moonlight-background"}`}
-          onClick={() => setCard("streak")}
-        >
-          Streak
-        </button>
       </div>
 
       {card ? (
