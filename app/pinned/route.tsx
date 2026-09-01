@@ -4,7 +4,7 @@ import { getData } from "@/helpers/getData";
 import { ThemeData } from "@/types/Theme";
 import Error from "../Error";
 import PinnedData from "@/utils/pinned";
-import PinnedComp from "./Pinned";
+import PinnedComp, { ROW_GAP, TILE_HEIGHT } from "./Pinned";
 
 // /pinned?username=rahuletto
 export const dynamic = 'force-dynamic';
@@ -63,9 +63,12 @@ export async function GET(request: Request) {
       return Send(image, {error: true});
     }
 
+    const rows = Math.ceil(pinned.length / 2);
+    const gridHeight = rows * TILE_HEIGHT + (rows - 1) * ROW_GAP;
+
     const image = await generateSvg(PinnedComp(pinned, theme), {
       width: 500,
-      height: Math.ceil(pinned.length / 2) * 116 + 40,
+      height: gridHeight + theme.padding * 2,
     });
 
     return Send(image);
