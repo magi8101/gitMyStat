@@ -36,7 +36,7 @@ export async function GET(request: Request) {
     const rawdata = await LangData(user || "rahuletto");
 
     if (
-      rawdata.data.user.repositories.edges.length == 0 ||
+      !rawdata.data?.user?.repositories?.edges?.length ||
       (rawdata.errors && rawdata.errors[0])
     ) {
       const image = await generateSvg(
